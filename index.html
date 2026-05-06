@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proyecto de código abierto para promover software libre y privacidad de datos — Tecnología, libertad y privacidad.">
+    <meta name="theme-color" content="#fdf6f9">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="The Open Source Project">
+    <meta property="og:description" content="Software libre, privacidad y soberanía digital para todos.">
+    <meta property="og:type" content="website">
+
+    <title>The Open Source Project</title>
+
+    <!-- Preconnect para rendimiento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Fuentes — carga no bloqueante -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+
+    <!-- Font Awesome — carga diferida -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css">
+    <!-- CSS Documentación -->
+    <link rel="stylesheet" href="doc.css">
+</head>
+<body>
+
+    <!-- OVERLAY DE CARGA -->
+    <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Cargando">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- PANTALLA DE BIENVENIDA -->
+    <section class="welcome-page" id="welcomePage" aria-label="Bienvenida">
+        <div class="floating-elements" aria-hidden="true">
+            <div class="floating-element fe-1"></div>
+            <div class="floating-element fe-2"></div>
+            <div class="floating-element fe-3"></div>
+        </div>
+
+        <div class="welcome-card">
+            <div class="welcome-icon" aria-hidden="true">
+                <i class="fas fa-spa"></i>
+            </div>
+
+            <h1 id="title" aria-label="Bienvenido a The Open Source Project"></h1>
+
+            <p class="subtitle">
+                <i class="fas fa-quote-left" aria-hidden="true"></i>
+                Tecnología, libertad y privacidad
+                <i class="fas fa-quote-right" aria-hidden="true"></i>
+            </p>
+
+            <button class="btn btn-primary btn-large" onclick="enterSite()" aria-label="Entrar al sitio">
+                <span>Entrar</span>
+                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main id="contenido" hidden>
+
+        <!-- NAV STICKY -->
+        <nav class="site-nav" id="siteNav" aria-label="Navegación principal">
+            <div class="nav-inner">
+                <a href="#inicio" class="nav-logo" aria-label="Inicio">
+                    <i class="fas fa-spa" aria-hidden="true"></i>
+                    <span>TOSP</span>
+                </a>
+                <ul class="nav-links" role="list">
+                    <li><a href="#que-ofrecemos">¿Qué ofrecemos?</a></li>
+                    <li><a href="#filosofia">Filosofía</a></li>
+                    <li><a href="#tecnologias">Tecnologías</a></li>
+                    <li><a href="#documentacion">Documentación</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                
+                <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <!-- Menú móvil -->
+            <div class="mobile-menu" id="mobileMenu" hidden>
+                <ul role="list">
+                    <li><a href="#que-ofrecemos" onclick="closeMobileMenu()">¿Qué ofrecemos?</a></li>
+                    <li><a href="#filosofia" onclick="closeMobileMenu()">Filosofía</a></li>
+                    <li><a href="#tecnologias" onclick="closeMobileMenu()">Tecnologías</a></li>
+                    <li><a href="#documentacion" onclick="closeMobileMenu()">Documentación</a></li>
+                    <li><a href="#contacto" onclick="closeMobileMenu()">Contacto</a></li>
+                    <li>
+                        <a href="https://mastodon.social/@tosp" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-mastodon" aria-hidden="true"></i> Mastodon
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- HEADER -->
+        <header class="card-section" id="inicio">
+            <div class="card-header-particles" aria-hidden="true"></div>
+
+            <div class="card-content header-content">
+                <h2 class="card-title">
+                    <i class="fas fa-spa" aria-hidden="true"></i>
+                    The Open Source Project
+                </h2>
+                <p class="card-subtitle">
+                    The Open Source Project ha nacido de la mano de un pequeño equipo formado por dos estudiantes. Nuestro objetivo es ofrecer servicios gratuitos, fáciles de utilizar y eficientes, manteniendo nuestro compromiso principal: no recolectar datos ni venderlos a terceros. Creemos en la soberanía digital y en que cada persona tiene derecho a controlar su propia información.
+                </p>
+
+                <div class="stats-container" role="list">
+                    <div class="stat-item" role="listitem">
+                        <span class="stat-number" aria-label="2 servicios">2</span>
+                        <span class="stat-label">Servicios</span>
+                    </div>
+                    <div class="stat-item" role="listitem">
+                        <span class="stat-number" aria-label="100 por ciento código abierto">100%</span>
+                        <span class="stat-label">Código abierto</span>
+                    </div>
+                    <div class="stat-item" role="listitem">
+                        <span class="stat-number" aria-label="0 datos vendidos">0</span>
+                        <span class="stat-label">Datos vendidos</span>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <a href="#que-ofrecemos" class="btn btn-primary">
+                        Descubrir más <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- SECCIÓN ¿QUÉ OFRECEMOS? -->
+        <section class="card-section" id="que-ofrecemos" aria-labelledby="h-ofrecemos">
+            <div class="card-content">
+                <h2 class="card-title" id="h-ofrecemos">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  ¿Qué ofrecemos?  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+
+                <div class="content-grid">
+                    <div class="content-text">
+                        <p><strong>The Open Source Project</strong> es más que un proyecto técnico: es una iniciativa que construye alternativas digitales éticas frente a los gigantes tecnológicos. Nuestro ecosistema de software libre devuelve a las personas el control sobre sus datos, su privacidad y su independencia en línea.</p>
+
+                        <p>Reemplazamos servicios centralizados de grandes corporaciones por alternativas autoalojadas, transparentes y comunitarias. Google Drive se transforma en <strong>Nextcloud</strong>; los DNS públicos de Google o Cloudflare en <strong>Bind9</strong>; la asignación de red en <strong>Kea DHCP</strong>. Cada servicio es un paso hacia un ecosistema digital más justo donde los datos nunca salen de tus propios servidores.</p>
+
+                        <ul class="benefits-list" role="list">
+                            <li><i class="fas fa-spa" aria-hidden="true"></i> Privacidad total: tus datos, tus servidores</li>
+                            <li><i class="fas fa-spa" aria-hidden="true"></i> Control absoluto: tú decides qué ocurre con tu información</li>
+                            <li><i class="fas fa-spa" aria-hidden="true"></i> Tecnología transparente: código abierto, sin secretos</li>
+                            <li><i class="fas fa-spa" aria-hidden="true"></i> Independencia real: sin dependencia de terceros</li>
+                        </ul>
+                    </div>
+
+                    <!-- DIAGRAMA DE INFRAESTRUCTURA -->
+                    <div class="content-image">
+                        <div class="infra-diagram" aria-label="Diagrama de infraestructura del proyecto">
+                            <!-- IsardVDI header -->
+                            <div class="infra-header">
+                                <i class="fas fa-server"></i>
+                                <span>IsardVDI — Núcleo del proyecto</span>
+                            </div>
+
+                            <!-- VMs row -->
+                            <div class="infra-vms">
+                                <div class="infra-vm">
+                                    <div class="infra-vm-icon apache">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="infra-vm-label">Apache2</div>
+                                    <div class="infra-vm-sub">Nextcloud</div>
+                                    <div class="infra-vm-ip">192.168.101.40</div>
+                                </div>
+                                <div class="infra-vm">
+                                    <div class="infra-vm-icon apache">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="infra-vm-label">Apache2</div>
+                                    <div class="infra-vm-sub">Página web</div>
+                                    <div class="infra-vm-ip">192.168.101.1</div>
+                                </div>
+                                <div class="infra-vm">
+                                    <div class="infra-vm-icon kea">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <div class="infra-vm-label">Kea DHCP</div>
+                                    <div class="infra-vm-sub">Asignación IPs</div>
+                                    <div class="infra-vm-ip">192.168.101.0/24</div>
+                                </div>
+                                <div class="infra-vm">
+                                    <div class="infra-vm-icon bind">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="infra-vm-label">Bind9</div>
+                                    <div class="infra-vm-sub">DNS</div>
+                                    <div class="infra-vm-ip">192.168.101.20</div>
+                                </div>
+                                <div class="infra-vm">
+                                    <div class="infra-vm-icon matrix">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="infra-vm-label">Matrix</div>
+                                    <div class="infra-vm-sub">Mensajería</div>
+                                    <div class="infra-vm-ip">192.168.101.50</div>
+                                </div>
+                            </div>
+
+                            <!-- LAN bar -->
+                            <div class="infra-lan">
+                                <div class="infra-lan-line"></div>
+                                <div class="infra-lan-label">RED INTERNA (LAN) — 192.168.101.0/24</div>
+                                <div class="infra-lan-line"></div>
+                            </div>
+
+                            <!-- Clients + Internet -->
+                            <div class="infra-bottom">
+                                <div class="infra-clients">
+                                    <i class="fas fa-laptop"></i>
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Clientes</span>
+                                </div>
+                                <div class="infra-arrow-right">
+                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                </div>
+                                <div class="infra-internet">
+                                    <i class="fas fa-earth-europe"></i>
+                                    <span>Internet</span>
+                                </div>
+                            </div>
+
+                            <div class="infra-os-badge">Ubuntu Server 24.04.4 LTS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN FILOSOFÍA -->
+        <section class="card-section card-section-alt" id="filosofia" aria-labelledby="h-filosofia">
+            <div class="card-content">
+                <h2 class="card-title" id="h-filosofia">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  Nuestra Filosofía  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+                <p class="card-subtitle">Creemos en la libertad digital, la transparencia y la soberanía de los datos como derechos fundamentales</p>
+
+                <div class="cards-grid" role="list">
+                    <article class="mini-card" role="listitem">
+                        <div class="mini-card-icon" aria-hidden="true">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Privacidad ante todo</h3>
+                        <p>Bases tecnológicas sólidas con software libre probado por décadas de comunidad global, sin telemetría ni venta de datos.</p>
+                    </article>
+
+                    <article class="mini-card" role="listitem">
+                        <div class="mini-card-icon" aria-hidden="true">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3>Ética Digital</h3>
+                        <p>Devolvemos el control a los usuarios, construyendo confianza y transparencia en cada decisión técnica y organizativa.</p>
+                    </article>
+
+                    <article class="mini-card" role="listitem">
+                        <div class="mini-card-icon" aria-hidden="true">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Independencia Tecnológica</h3>
+                        <p>Cada servicio autoalojado es un paso hacia la autonomía digital real, libre de suscripciones, anuncios y vigilancia corporativa.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN OBJETIVOS -->
+        <section class="card-section" id="objetivos" aria-labelledby="h-objetivos">
+            <div class="card-content">
+                <h2 class="card-title" id="h-objetivos">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  Nuestros Objetivos  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+                <p class="card-subtitle">Lo que construimos con cada línea de código</p>
+
+                <div class="objectives-grid">
+                    <div class="accordion-card">
+                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-general" onclick="toggleCard(this)">
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <h3>Objetivo General</h3>
+                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                        </button>
+                        <div class="accordion-content" id="acc-general" hidden>
+                            <p>Montar una infraestructura de red completa para centros educativos o empresas, proporcionando autonomía tecnológica y soberanía de datos. Queremos que cada institución pueda tener su propio ecosistema digital, independiente y autónomo, donde los datos nunca salgan de sus propias máquinas.</p>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% completado">
+                                <div class="progress-fill" style="width: 75%"></div>
+                                <span>75% completado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-card">
+                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-especificos" onclick="toggleCard(this)">
+                            <i class="fas fa-bullseye" aria-hidden="true"></i>
+                            <h3>Objetivos Específicos</h3>
+                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                        </button>
+                        <div class="accordion-content" id="acc-especificos" hidden>
+                            <p>Proporcionar aplicaciones que aseguren la privacidad de los datos de los usuarios, incluyendo servicios de mensajería y almacenamiento en la nube, todo ejecutándose en servidores propios sin dependencia de terceros.</p>
+                            <ul class="objective-list" role="list">
+                                <li><i class="fas fa-cloud" aria-hidden="true"></i> Almacenamiento en la nube privado con Nextcloud</li>
+                                <li><i class="fas fa-comments" aria-hidden="true"></i> Mensajería segura con Matrix</li>
+                                <li><i class="fas fa-shield-alt" aria-hidden="true"></i> DNS propio con Bind9 para mayor privacidad</li>
+                                <li><i class="fas fa-network-wired" aria-hidden="true"></i> Infraestructura DHCP propia con Kea</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN TECNOLOGÍAS -->
+        <section class="card-section card-section-alt" id="tecnologias" aria-labelledby="h-tecnologias">
+            <div class="card-content">
+                <h2 class="card-title" id="h-tecnologias">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  Tecnologías utilizadas  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+                <p class="card-subtitle">Soluciones basadas en software libre para entornos profesionales.</p>
+
+                <div class="tech-grid" role="list">
+
+                    <article class="tech-card" role="listitem">
+                        <div class="tech-header">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg" alt="Logo de Nextcloud" class="tech-logo" width="60" height="60" loading="lazy">
+                            <h3>Nextcloud</h3>
+                        </div>
+                        <p>Plataforma autoalojada de sincronización y colaboración. Almacena archivos, calendarios y contactos con cifrado extremo a extremo y sin intervención de terceros. Nuestra alternativa a Google Drive o Mega.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 Cloud</span>
+                            <span>🔒 Sincronización</span>
+                            <span>🔒 Colaboración</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder" aria-label="Logo de Bind9">B9</div>
+                            <h3>Bind9</h3>
+                        </div>
+                        <p>Servidor DNS de referencia en entornos críticos. Resuelve nombres de dominio con baja latencia y políticas de privacidad configurables. Sustituye los DNS de Google (8.8.8.8) o Cloudflare (1.1.1.1) por uno propio.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 DNS</span>
+                            <span>🔒 Seguridad</span>
+                            <span>🔒 Privacidad</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder" aria-label="Logo de Kea DHCP">Kea</div>
+                            <h3>Kea DHCP</h3>
+                        </div>
+                        <p>Servidor DHCP modular de alto rendimiento, con soporte para IPv4 e IPv6, leases flexibles y monitorización en tiempo real. Gestiona la asignación de IPs en nuestra red <code>192.168.101.0/24</code>.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 Redes</span>
+                            <span>🔒 Automatización</span>
+                            <span>🔒 IPv4/IPv6</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder" aria-label="Logo de Apache2">
+                                <i class="fas fa-server" aria-hidden="true"></i>
+                            </div>
+                            <h3>Apache2</h3>
+                        </div>
+                        <p>Servidor web HTTP robusto y versátil que utilizamos para alojar Nextcloud y la página web del proyecto. Es el motor que sirve nuestras aplicaciones web en la red local.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 Servidor Web</span>
+                            <span>🔒 HTTP</span>
+                            <span>🔒 PHP</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder" aria-label="Logo de IsardVDI">
+                                <i class="fas fa-desktop" aria-hidden="true"></i>
+                            </div>
+                            <h3>IsardVDI</h3>
+                        </div>
+                        <p>Plataforma de virtualización de escritorios que actúa como núcleo del proyecto. Aloja todas las máquinas virtuales de forma centralizada y permite trabajar desde cualquier lugar sin depender de un equipo local.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 Virtualización</span>
+                            <span>🔒 Escritorios</span>
+                            <span>🔒 Acceso remoto</span>
+                        </div>
+                    </article>
+
+                    <article class="tech-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder" aria-label="Logo de Caddy">
+                                <i class="fas fa-lock" aria-hidden="true"></i>
+                            </div>
+                            <h3>Caddy</h3>
+                        </div>
+                        <p>Servidor HTTP moderno con obtención automática de certificados TLS a través de Let's Encrypt. Permite publicar nuestros servicios con HTTPS sin necesidad de comprar un dominio, gracias a la función bastion de IsardVDI.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 HTTPS</span>
+                            <span>🔒 Let's Encrypt</span>
+                            <span>🔒 Proxy inverso</span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DOCUMENTACIÓN -->
+        <section class="card-section" id="documentacion" aria-labelledby="h-documentacion">
+            <div class="card-content">
+                <h2 class="card-title" id="h-documentacion">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  Documentación  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+                <p class="card-subtitle">Guías técnicas de instalación y configuración de nuestros servicios</p>
+
+                <div class="tech-grid" role="list">
+
+                    <!-- BIND9 -->
+                    <article class="tech-card doc-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder doc-logo" aria-label="Bind9">B9</div>
+                            <h3>Bind9</h3>
+                        </div>
+                        <p>Guía completa de instalación y configuración del servidor DNS Bind9, incluyendo definición de zonas, registros A y verificación del servicio.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 DNS</span>
+                            <span>🔒 Zonas</span>
+                            <span>🔒 Privacidad</span>
+                        </div>
+                        <a href="docbind9.html" class="doc-card-btn">
+                            Ver documentación <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
+
+                    <!-- NEXTCLOUD -->
+                    <article class="tech-card doc-card" role="listitem">
+                        <div class="tech-header">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg" alt="Logo de Nextcloud" class="tech-logo" width="60" height="60" loading="lazy">
+                            <h3>Nextcloud</h3>
+                        </div>
+                        <p>Instalación de Nextcloud con Apache2, MySQL y PHP. Configura tu propia nube privada en la red local con almacenamiento seguro y sin dependencias externas.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 Cloud</span>
+                            <span>🔒 Apache2</span>
+                            <span>🔒 MySQL</span>
+                        </div>
+                        <a href="docnextcloud.html" class="doc-card-btn">
+                            Ver documentación <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
+
+                    <!-- KEA DHCP -->
+                    <article class="tech-card doc-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder doc-logo" aria-label="Kea DHCP">Kea</div>
+                            <h3>Kea DHCP</h3>
+                        </div>
+                        <p>Configuración del servidor DHCP Kea para asignación automática de IPs, reservas estáticas para servidores y gestión de la red <code>192.168.101.0/24</code>.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 DHCP</span>
+                            <span>🔒 Redes</span>
+                            <span>🔒 IPv4</span>
+                        </div>
+                        <a href="dockea.html" class="doc-card-btn">
+                            Ver documentación <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
+
+                    <!-- ISARDVDI -->
+                    <article class="tech-card doc-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder doc-logo" aria-label="IsardVDI">
+                                <i class="fas fa-desktop" aria-hidden="true"></i>
+                            </div>
+                            <h3>IsardVDI</h3>
+                        </div>
+                        <p>IsardVDI es el núcleo del proyecto. Aloja todas las máquinas virtuales con Ubuntu Server 24.04.4 LTS y permite el acceso remoto centralizado desde cualquier lugar.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 Virtualización</span>
+                            <span>🔒 VMs</span>
+                            <span>🔒 Remoto</span>
+                        </div>
+                        <a href="docisardvdi.html" class="doc-card-btn">
+                            Ver documentación <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN NEWSLETTER -->
+        <section class="card-section newsletter-card" id="contacto" aria-labelledby="h-newsletter">
+            <div class="card-content newsletter-content">
+                <h2 class="card-title" id="h-newsletter">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  Mantente al día  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+                <p class="card-subtitle">Suscríbete para recibir novedades sobre el proyecto</p>
+
+                <div class="newsletter-form" role="form" aria-label="Formulario de suscripción">
+                    <div class="form-group">
+                        <label for="email-sub" class="sr-only">Tu dirección de email</label>
+                        <input type="email" id="email-sub" placeholder="tu@email.com" required autocomplete="email" aria-required="true">
+                        <button type="button" class="btn" onclick="handleSubscribe()" aria-label="Suscribirse al newsletter">
+                            Suscribirme <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="privacy-check" aria-required="true">
+                        Acepto la <a href="privacidad.html" class="inline-link" target="_blank" rel="noopener noreferrer">política de privacidad</a>
+                    </label>
+                    <div id="newsletter-msg" class="newsletter-msg" role="alert" aria-live="polite"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN REDES -->
+        <section class="card-section card-section-alt" aria-labelledby="h-redes">
+            <div class="card-content social-content">
+                <h2 class="card-title" id="h-redes">Síguenos en nuestras redes.</h2>
+                <div class="social-links">
+                    <a href="https://mastodon.social/@tosp" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Perfil de Mastodon: arroba tosp arroba mastodon punto social">
+                        <i class="fab fa-mastodon" aria-hidden="true"></i>
+                        <span>@tosp@mastodon.social</span>
+                    </a>
+                    <a href="https://github.com/StephanyG27/The-Open-Source-Project.git" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Repositorio en GitHub">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+                <p class="mastodon-note">Únete a nuestra comunidad en Mastodon, la red social libre y descentralizada</p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="card-section" id="footer" aria-label="Pie de página">
+            <div class="card-content footer-content">
+                <div class="footer-grid">
+                    <div class="footer-section">
+                        <h4>The Open Source Project</h4>
+                        <p>Promoviendo la libertad digital, un servidor a la vez.</p>
+                        <a href="https://mastodon.social/@tosp" class="social-link-small" target="_blank" rel="noopener noreferrer" aria-label="Mastodon">
+                            <i class="fab fa-mastodon" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://github.com/StephanyG27/The-Open-Source-Project.git" class="social-link-small" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <i class="fab fa-github" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul role="list">
+                            <li><a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a></li>
+                            <li><a href="terminos.html" target="_blank" rel="noopener noreferrer">Términos de Uso</a></li>
+                            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">Licencia GPL-3.0</a></li>
+                            <li><a href="https://github.com/StephanyG27/The-Open-Source-Project.git" target="_blank" rel="noopener noreferrer">Código en GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 The Open Source Project — Licencia <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">GPL-3.0</a></p>
+                <p class="heart">Hecho con <i class="fas fa-heart" aria-hidden="true"></i> y <i class="fas fa-spa" aria-hidden="true"></i> por estudiantes</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Volver al inicio de la página" hidden>
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <script src="main.js" defer></script>
+</body>
+</html>

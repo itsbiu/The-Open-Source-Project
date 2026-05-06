@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Kea DHCP — The Open Source Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="doc.css">
+</head>
+<body class="doc-page">
+
+    <nav class="doc-page-nav">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Volver</a>
+        <span class="doc-page-nav-sep">/</span>
+        <span class="doc-page-nav-title">Documentación Kea DHCP</span>
+    </nav>
+
+    <div class="doc-page-hero">
+        <div class="doc-page-hero-icon" style="background: linear-gradient(135deg, #7b1fa2, #9c27b0);">
+            <i class="fas fa-network-wired"></i>
+        </div>
+        <h1>Kea DHCP — Asignación de IPs</h1>
+        <p>Configuración del servidor DHCP Kea para la red <code>192.168.101.0/24</code>, con reservas estáticas y pool dinámico.</p>
+    </div>
+
+    <div class="doc-page-body">
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-download"></i> Instalación</div>
+            <p>Actualiza los repositorios e instala el servidor DHCP de Kea:</p>
+            <pre><code>sudo apt update && sudo apt install kea-dhcp4-server -y</code></pre>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-file-code"></i> Configuración básica</div>
+            <p>Edita el archivo <code>/etc/kea/kea-dhcp4.conf</code> con la siguiente configuración completa:</p>
+            <pre><code>{
+  "Dhcp4": {
+    "interfaces-config": {
+      "interfaces": ["enp2s0"],
+      "dhcp-socket-type": "raw"
+    },
+    "reservations-global": false,
+    "reservations-out-of-pool": true,
+    "valid-lifetime": 86400,
+    "renew-timer": 43200,
+    "rebind-timer": 75600,
+    "subnet4": [
+      {
+        "subnet": "192.168.101.0/24",
+        "match-client-id": false,
+        "option-data": [
+          { "name": "routers",            "data": "192.168.101.10" },
+          { "name": "domain-name-servers","data": "192.168.101.20" },
+          { "name": "domain-name",        "data": "network.tosp.local.net" }
+        ],
+        "pools": [
+          { "pool": "192.168.101.150-192.168.101.254" }
+        ],
+        "reservations": [
+          {
+            "hostname":   "host1.network.tosp.local.net",
+            "hw-address": "52:54:00:10:82:ce",
+            "ip-address": "192.168.101.100"
+          },
+          {
+            "hostname":   "host2.network.tosp.local.net",
+            "hw-address": "52:54:00:7e:98:64",
+            "ip-address": "192.168.101.101"
+          }
+        ]
+      }
+    ],
+    "loggers": [
+      { "name": "*", "severity": "DEBUG" }
+    ]
+  }
+}</code></pre>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-info-circle"></i> Explicación de parámetros clave</div>
+            <ul>
+                <li><code>dhcp-socket-type: raw</code> — Ideal para redes con dispositivos sin IP asignada previamente.</li>
+                <li><code>reservations-global: false</code> — Las reservas solo aplican a la subred definida.</li>
+                <li><code>reservations-out-of-pool: true</code> — Permite reservas fuera del rango del pool dinámico.</li>
+                <li><code>valid-lifetime: 86400</code> — La IP asignada es válida durante 24 horas (en segundos).</li>
+                <li><code>renew-timer: 43200</code> — El cliente renueva la IP a las 12 horas.</li>
+                <li><code>pool: 150–254</code> — Rango dinámico para clientes sin reserva.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-check-circle"></i> Activar y verificar el servicio</div>
+            <pre><code>sudo systemctl enable kea-dhcp4-server
+sudo systemctl restart kea-dhcp4-server
+sudo systemctl status kea-dhcp4-server</code></pre>
+            <div class="doc-note">Si el estado es <code>active (running)</code>, el servidor DHCP está operativo y asignará IPs automáticamente a los dispositivos que se conecten a la red.</div>
+        </div>
+
+    </div>
+</body>
+</html>

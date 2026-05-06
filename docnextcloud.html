@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Nextcloud — The Open Source Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="doc.css">
+</head>
+<body class="doc-page">
+
+    <nav class="doc-page-nav">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Volver</a>
+        <span class="doc-page-nav-sep">/</span>
+        <span class="doc-page-nav-title">Documentación Nextcloud</span>
+    </nav>
+
+    <div class="doc-page-hero">
+        <div class="doc-page-hero-icon" style="background: linear-gradient(135deg, #0082c9, #005fa3); padding: 0.3rem;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg" alt="Nextcloud" style="width:42px; filter: brightness(10);">
+        </div>
+        <h1>Nextcloud — Nube privada</h1>
+        <p>Instalación de Nextcloud con Apache2, MySQL y PHP en Ubuntu Server para un almacenamiento en la nube completamente privado.</p>
+    </div>
+
+    <div class="doc-page-body">
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-download"></i> Descarga e instalación de dependencias</div>
+            <p>Descarga la última versión de Nextcloud e instala Apache2 y MySQL:</p>
+            <pre><code>wget https://download.nextcloud.com/server/releases/nextcloud-33.0.2.zip
+sudo apt install -y apache2
+sudo apt install -y mysql-server</code></pre>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-code"></i> Instalación de módulos PHP</div>
+            <p>Instala los paquetes PHP necesarios para que Nextcloud funcione correctamente:</p>
+            <pre><code>sudo apt install -y php libapache2-mod-php php-fpm php-common \
+  php-mbstring php-xmlrpc php-soap php-gd php-xml php-intl \
+  php-mysql php-cli php-ldap php-zip php-curl</code></pre>
+            <div class="doc-note">Nextcloud es compatible con la versión de PHP incluida en Ubuntu Server 24.04, por lo que no es necesario añadir repositorios adicionales.</div>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-database"></i> Configuración de la base de datos</div>
+            <p>Accede a MySQL y crea la base de datos y el usuario para Nextcloud:</p>
+            <pre><code>mysql
+CREATE DATABASE bbdd;
+CREATE USER 'usuario'@'localhost' IDENTIFIED WITH
+  mysql_native_password BY 'password';
+GRANT ALL PRIVILEGES ON bbdd.* TO 'usuario'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;</code></pre>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-folder-open"></i> Despliegue de los archivos</div>
+            <p>Mueve el ZIP descargado a <code>/var/www/html</code>, descomprímelo y organiza los archivos:</p>
+            <pre><code>mv nextcloud-33.0.2.zip /var/www/html/
+cd /var/www/html/
+unzip nextcloud-33.0.2.zip
+rm nextcloud-33.0.2.zip
+mv nextcloud/* .
+rm -rf nextcloud</code></pre>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-check-circle"></i> Permisos y reinicio de Apache2</div>
+            <p>Asigna los permisos correctos y reinicia el servidor web:</p>
+            <pre><code>sudo chown -R www-data:www-data /var/www/html/
+sudo chmod -R 755 /var/www/html/
+sudo systemctl restart apache2</code></pre>
+            <div class="doc-note">Después de estos pasos, accede a <code>http://cloud.tosp.local.net</code> desde un navegador dentro de la red para completar la instalación vía interfaz web.</div>
+        </div>
+
+    </div>
+</body>
+</html>

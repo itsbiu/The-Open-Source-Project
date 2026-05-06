@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Bind9 — The Open Source Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="doc.css">
+</head>
+<body class="doc-page">
+
+    <nav class="doc-page-nav">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Volver</a>
+        <span class="doc-page-nav-sep">/</span>
+        <span class="doc-page-nav-title">Documentación Bind9</span>
+    </nav>
+
+    <div class="doc-page-hero">
+        <div class="doc-page-hero-icon">B9</div>
+        <h1>Bind9 — DNS</h1>
+        <p>Guía de instalación y configuración del servidor DNS Bind9 para la red <code>tosp.local.net</code>.</p>
+    </div>
+
+    <div class="doc-page-body">
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-download"></i> Instalación</div>
+            <p>Para instalar Bind9 en Ubuntu Server, ejecuta el siguiente comando:</p>
+            <pre><code>sudo apt install bind9 -y</code></pre>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-file-code"></i> Configuración de la zona DNS</div>
+            <p>Edita el archivo <code>/etc/bind/named.conf.local</code> y añade la definición de tu zona:</p>
+            <pre><code>zone "tosp.local.net" IN {
+    type master;
+    file "network.tosp.local.net.hosts";
+};</code></pre>
+            <div class="doc-note">Este bloque indica que este servidor será el maestro (<code>master</code>) del dominio <code>tosp.local.net</code> y que la configuración de los registros se encuentra en el archivo <code>network.tosp.local.net.hosts</code>, ubicado en <code>/var/cache/bind/</code>.</div>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-list-ul"></i> Archivo de zona (registros A)</div>
+            <p>Crea o edita el archivo <code>/var/cache/bind/network.tosp.local.net.hosts</code> con el siguiente contenido:</p>
+            <pre><code>$TTL 300
+@ IN SOA ns1.tosp.local.net. admin.tosp.local.net. (
+    1       ; Serial
+    10800   ; Refresh
+    3600    ; Retry
+    604800  ; Expire
+    60      ; Minimum TTL
+)
+
+; Nameservers
+@ IN NS ns1.tosp.local.net.
+
+; Registros A — Servidores
+ns1   IN A 192.168.101.20
+
+; Registros A — Servicios
+@      IN A 192.168.101.1   ; tosp.local.net → Página web
+cloud  IN A 192.168.101.40  ; cloud.tosp.local.net → Nextcloud
+matrix IN A 192.168.101.50  ; matrix.tosp.local.net → Matrix</code></pre>
+            <div class="doc-note">Con esta configuración, el DNS resolverá los dominios locales del proyecto hacia las IPs de cada servicio dentro de la red <code>192.168.101.0/24</code>.</div>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-check-circle"></i> Verificación y reinicio del servicio</div>
+            <p>Comprueba que la sintaxis del archivo de zona es correcta y reinicia el servicio:</p>
+            <pre><code>sudo systemctl restart bind9
+sudo systemctl status bind9</code></pre>
+            <div class="doc-note">Si el estado muestra <code>active (running)</code>, el servidor DNS está operativo y listo para resolver peticiones en la red local.</div>
+        </div>
+
+    </div>
+</body>
+</html>

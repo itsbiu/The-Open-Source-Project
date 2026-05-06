@@ -1,0 +1,471 @@
+/* =============================================
+   doc.css — Infraestructura diagram + Doc cards
+   The Open Source Project — sakura theme
+   ============================================= */
+
+/* ── Infrastructure Diagram ── */
+.infra-diagram {
+    background: linear-gradient(135deg, var(--sakura-pink) 0%, var(--sakura-cream) 60%, var(--sakura-medium-pink) 100%);
+    border: 2px solid rgba(255, 183, 197, 0.4);
+    border-radius: var(--radius-md);
+    padding: 1.6rem 1.3rem 1.3rem;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 8px 32px var(--sakura-shadow);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.infra-diagram::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, var(--sakura-blossom) 0%, transparent 70%);
+    opacity: 0.15;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(20px);
+}
+
+.infra-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--sakura-text);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px dashed rgba(255, 183, 197, 0.5);
+}
+
+.infra-header i {
+    color: var(--sakura-blossom);
+    font-size: 1rem;
+}
+
+.infra-vms {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.infra-vm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    background: var(--sakura-white);
+    border: 2px solid rgba(255, 183, 197, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 0.5rem 0.55rem;
+    min-width: 75px;
+    flex: 1 1 75px;
+    max-width: 105px;
+    box-shadow: 0 2px 8px var(--sakura-shadow);
+    transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.infra-vm:hover {
+    box-shadow: 0 6px 18px var(--sakura-shadow);
+    border-color: var(--sakura-blossom);
+    transform: translateY(-3px);
+}
+
+.infra-vm-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: var(--sakura-text);
+    margin-bottom: 0.2rem;
+}
+
+.infra-vm-icon.apache  { background: linear-gradient(135deg, var(--sakura-blossom), var(--sakura-deep-pink)); }
+.infra-vm-icon.kea     { background: linear-gradient(135deg, var(--sakura-moss), var(--sakura-wood)); color: var(--sakura-white); }
+.infra-vm-icon.bind    { background: linear-gradient(135deg, var(--sakura-deep-pink), var(--sakura-wood)); }
+.infra-vm-icon.matrix  { background: linear-gradient(135deg, var(--sakura-medium-pink), var(--sakura-blossom)); }
+
+.infra-vm-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--sakura-text);
+    text-align: center;
+    line-height: 1.2;
+}
+
+.infra-vm-sub {
+    font-size: 0.6rem;
+    color: var(--sakura-deep-pink);
+    font-weight: 500;
+    text-align: center;
+}
+
+.infra-vm-ip {
+    font-size: 0.55rem;
+    color: var(--sakura-moss);
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    margin-top: 0.1rem;
+}
+
+.infra-lan {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.6rem 0;
+}
+
+.infra-lan-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--sakura-blossom), transparent);
+    opacity: 0.6;
+}
+
+.infra-lan-label {
+    font-size: 0.58rem;
+    font-weight: 600;
+    color: var(--sakura-text);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+    background: rgba(255, 183, 197, 0.25);
+    border: 1px solid rgba(255, 183, 197, 0.5);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+}
+
+.infra-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 0.7rem;
+}
+
+.infra-clients {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+.infra-internet {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+.infra-clients i, .infra-internet i {
+    font-size: 1.15rem;
+    color: var(--sakura-blossom);
+}
+
+.infra-clients span, .infra-internet span {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--sakura-moss);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.infra-arrow-right i {
+    font-size: 1.2rem;
+    color: var(--sakura-blossom);
+    opacity: 0.5;
+}
+
+.infra-os-badge {
+    text-align: center;
+    font-size: 0.58rem;
+    color: var(--sakura-moss);
+    margin-top: 1rem;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+}
+
+/* ── Doc card CTA button ── */
+.doc-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.doc-card p { flex: 1; }
+
+.doc-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1rem;
+    padding: 0.55rem 1.3rem;
+    background: var(--sakura-blossom);
+    color: var(--sakura-text);
+    border-radius: var(--radius-xl);
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 183, 197, 0.4);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition), gap var(--transition);
+    align-self: flex-start;
+}
+
+.doc-card-btn:hover {
+    background: var(--sakura-deep-pink);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(255, 183, 197, 0.55);
+    gap: 0.65rem;
+}
+
+/* ── Documentation page shared layout ── */
+.doc-page {
+    min-height: 100vh;
+    background: url('sakurabg.png') center center / cover no-repeat fixed;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--sakura-text);
+    line-height: 1.7;
+}
+
+.doc-page-nav {
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    background: rgba(255, 249, 249, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 183, 197, 0.25);
+    box-shadow: 0 4px 20px var(--sakura-shadow);
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.doc-page-nav a {
+    color: var(--sakura-deep-pink);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color var(--transition);
+}
+
+.doc-page-nav a:hover { color: var(--sakura-text); }
+
+.doc-page-nav-sep {
+    color: var(--sakura-blossom);
+    font-size: 0.9rem;
+}
+
+.doc-page-nav-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: var(--sakura-text);
+    font-size: 1rem;
+}
+
+.doc-page-hero {
+    background: linear-gradient(135deg, var(--sakura-pink) 0%, var(--sakura-cream) 100%);
+    border-bottom: 1px solid rgba(255, 183, 197, 0.2);
+    padding: 3.5rem 2rem 3rem;
+    text-align: center;
+}
+
+.doc-page-hero-icon {
+    width: 68px; height: 68px;
+    background: var(--sakura-blossom);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    color: var(--sakura-text);
+    margin: 0 auto 1.4rem;
+    box-shadow: 0 8px 24px rgba(255, 183, 197, 0.5);
+    letter-spacing: 0.02em;
+}
+
+.doc-page-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--sakura-text);
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.02em;
+}
+
+.doc-page-hero p {
+    color: var(--sakura-moss);
+    font-size: 1rem;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+.doc-page-hero p code {
+    background: rgba(255, 183, 197, 0.25);
+    color: var(--sakura-text);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.88em;
+    font-family: 'Courier New', monospace;
+    font-style: normal;
+}
+
+.doc-page-body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 5rem;
+}
+
+.doc-section {
+    background: var(--sakura-white);
+    border: 2px solid rgba(255, 183, 197, 0.25);
+    border-radius: var(--radius-md);
+    padding: 2rem 2.2rem;
+    margin-bottom: 1.6rem;
+    box-shadow: 0 6px 18px var(--sakura-shadow);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.doc-section:hover {
+    border-color: rgba(255, 183, 197, 0.55);
+    box-shadow: 0 12px 28px var(--sakura-shadow);
+}
+
+.doc-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--sakura-text);
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 2px solid rgba(255, 183, 197, 0.3);
+}
+
+.doc-section-title i {
+    color: var(--sakura-blossom);
+    font-size: 1rem;
+}
+
+.doc-section p {
+    color: var(--sakura-moss);
+    line-height: 1.8;
+    margin-bottom: 0.9rem;
+    font-size: 0.97rem;
+}
+
+.doc-section p:last-child { margin-bottom: 0; }
+
+.doc-section pre {
+    background: var(--sakura-text);
+    color: var(--sakura-pink);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem 1.5rem;
+    font-size: 0.83rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 0.9rem 0;
+    box-shadow: 0 4px 12px var(--sakura-shadow);
+}
+
+.doc-section code {
+    background: rgba(255, 183, 197, 0.2);
+    color: var(--sakura-text);
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-family: 'Courier New', monospace;
+}
+
+.doc-section pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+.doc-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.6rem 0;
+}
+
+.doc-section ul li {
+    padding: 0.35rem 0 0.35rem 1.5rem;
+    position: relative;
+    color: var(--sakura-moss);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.doc-section ul li::before {
+    content: '🌸';
+    position: absolute;
+    left: 0;
+    font-size: 0.68rem;
+    top: 0.52rem;
+}
+
+.doc-note {
+    background: var(--sakura-pink);
+    border-left: 3px solid var(--sakura-blossom);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 0.85rem 1.1rem;
+    margin-top: 0.9rem;
+    font-size: 0.9rem;
+    color: var(--sakura-text);
+    line-height: 1.7;
+}
+
+.doc-note code {
+    background: rgba(255, 183, 197, 0.35);
+}
+
+/* ── Términos extras ── */
+.terminos-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--sakura-text);
+    margin: 1.6rem 0 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid rgba(255, 183, 197, 0.3);
+}
+
+.terminos-section h2:first-child { margin-top: 0; }
+
+.terminos-section ul li { padding-left: 1.5rem; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .infra-vms { gap: 0.35rem; }
+    .infra-vm  { min-width: 58px; padding: 0.5rem 0.3rem; }
+    .infra-vm-label { font-size: 0.6rem; }
+    .infra-vm-sub   { font-size: 0.54rem; }
+    .infra-vm-ip    { display: none; }
+    .infra-lan-label { font-size: 0.52rem; padding: 0.15rem 0.4rem; }
+    .doc-page-hero { padding: 2.5rem 1.2rem 2rem; }
+    .doc-page-hero h1 { font-size: 1.7rem; }
+    .doc-page-body { padding: 1.5rem 1rem 3rem; }
+    .doc-section { padding: 1.3rem 1.1rem; }
+    .doc-page-nav { padding: 0.7rem 1rem; }
+}
