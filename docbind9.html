@@ -14,14 +14,14 @@
 <body class="doc-page">
 
     <nav class="doc-page-nav">
-        <a href="index.html"><i class="fas fa-arrow-left"></i> Volver</a>
+        <a href="index.html#inicio"><i class="fas fa-arrow-left"></i> Volver</a>
         <span class="doc-page-nav-sep">/</span>
         <span class="doc-page-nav-title">Documentación Bind9</span>
     </nav>
 
     <div class="doc-page-hero">
         <div class="doc-page-hero-icon">B9</div>
-        <h1>Bind9 — DNS</h1>
+        <h1>Bind9 — Servidor DNS</h1>
         <p>Guía de instalación y configuración del servidor DNS Bind9 para la red <code>tosp.local.net</code>.</p>
     </div>
 
@@ -71,7 +71,8 @@ matrix IN A 192.168.101.50  ; matrix.tosp.local.net → Matrix</code></pre>
         <div class="doc-section">
             <div class="doc-section-title"><i class="fas fa-check-circle"></i> Verificación y reinicio del servicio</div>
             <p>Comprueba que la sintaxis del archivo de zona es correcta y reinicia el servicio:</p>
-            <pre><code>sudo systemctl restart bind9
+            <pre><code>named-checkzone tosp.local.net /var/cache/bind/network.tosp.local.net.hosts
+sudo systemctl restart bind9
 sudo systemctl status bind9</code></pre>
             <div class="doc-note">Si el estado muestra <code>active (running)</code>, el servidor DNS está operativo y listo para resolver peticiones en la red local.</div>
         </div>

@@ -469,3 +469,12 @@
     .doc-section { padding: 1.3rem 1.1rem; }
     .doc-page-nav { padding: 0.7rem 1rem; }
 }
+
+/* Nextcloud icon (white background para que el logo se vea bien) */
+.infra-vm-icon.nextcloud-icon {
+    background: #fff;
+    border: 1.5px solid rgba(255, 183, 197, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

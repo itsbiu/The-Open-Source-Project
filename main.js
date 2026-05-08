@@ -43,7 +43,6 @@ function enterSite() {
         contenido.hidden = false;
         contenido.classList.add("fade-in");
 
-        // Trigger scroll-reveal for initially visible sections
         document.querySelectorAll(".card-section").forEach(s => {
             revealObserver.observe(s);
         });
@@ -75,7 +74,6 @@ window.addEventListener("scroll", () => {
         backToTopBtn.hidden = window.scrollY <= 500;
     }
 
-    // Nav scroll shadow
     const nav = document.getElementById("siteNav");
     if (nav) nav.classList.toggle("scrolled", window.scrollY > 20);
 }, { passive: true });
@@ -105,10 +103,10 @@ async function handleSubscribe() {
 
     try {
         await emailjs.send(
-            "service_bz5dvun",  // Service ID
-            "template_g64mbp1", // Template ID
+            "service_bz5dvun",
+            "template_g64mbp1",
             {
-                user_email: emailInput.value, // ← nombre exacto que usa la plantilla
+                user_email: emailInput.value,
                 date: new Date().toLocaleDateString("es-ES", {
                     weekday: "long",
                     year:    "numeric",
@@ -174,7 +172,26 @@ document.addEventListener("click", e => {
 
 // --- Init on load ---
 window.addEventListener("load", () => {
-    emailjs.init("hne1y0REm-3wem4nl"); // Public Key
+    emailjs.init("hne1y0REm-3wem4nl");
+
+    // Si venimos de una página de documentación, saltar la bienvenida
+    if (window.location.hash === '#inicio') {
+        const welcomePage = document.getElementById("welcomePage");
+        const contenido   = document.getElementById("contenido");
+        if (welcomePage && contenido) {
+            welcomePage.remove();
+            contenido.hidden = false;
+            contenido.classList.add("fade-in");
+            document.querySelectorAll(".card-section").forEach(s => revealObserver.observe(s));
+            setTimeout(() => {
+                const header = document.getElementById("inicio");
+                if (header) header.scrollIntoView({ behavior: "smooth" });
+            }, 150);
+            hideLoadingOverlay();
+            return;
+        }
+    }
+
     typeEffect();
     setTimeout(hideLoadingOverlay, 300);
 });
