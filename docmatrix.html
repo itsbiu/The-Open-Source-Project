@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Documentación de Matrix — Instalación y configuración del servidor de mensajería descentralizado.">
+    <meta name="theme-color" content="#fdf6f9">
+
+    <title>Documentación Matrix — The Open Source Project</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="doc.css">
+</head>
+<body>
+
+    <!-- OVERLAY DE CARGA -->
+    <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Cargando">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- NAV STICKY -->
+    <nav class="site-nav" id="siteNav" aria-label="Navegación principal">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo" aria-label="Volver al inicio">
+                <i class="fas fa-spa" aria-hidden="true"></i>
+                <span>TOSP</span>
+            </a>
+            <ul class="nav-links" role="list">
+                <li><a href="index.html#que-ofrecemos">¿Qué ofrecemos?</a></li>
+                <li><a href="index.html#filosofia">Valores</a></li>
+                <li><a href="index.html#tecnologias">Tecnologías</a></li>
+                <li><a href="index.html#documentacion">Documentación</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu" hidden>
+            <ul role="list">
+                <li><a href="index.html#que-ofrecemos" onclick="closeMobileMenu()">¿Qué ofrecemos?</a></li>
+                <li><a href="index.html#filosofia" onclick="closeMobileMenu()">Valores</a></li>
+                <li><a href="index.html#tecnologias" onclick="closeMobileMenu()">Tecnologías</a></li>
+                <li><a href="index.html#documentacion" onclick="closeMobileMenu()">Documentación</a></li>
+                <li><a href="index.html#contacto" onclick="closeMobileMenu()">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- HEADER -->
+        <header class="card-section" id="inicio">
+            <div class="card-header-particles" aria-hidden="true"></div>
+            <div class="card-content header-content">
+                <h2 class="card-title">
+                    <i class="fas fa-comments" aria-hidden="true"></i>
+                    Matrix
+                </h2>
+                <p class="card-subtitle">
+                    Guía de instalación y configuración del servidor de mensajería descentralizado Matrix/Synapse en Ubuntu Server.
+                </p>
+                <div class="header-actions">
+                    <a href="index.html#documentacion" class="btn btn-primary">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i> Volver a documentación
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- SECCIÓN ¿QUÉ ES MATRIX? -->
+        <section class="card-section" id="que-es" aria-labelledby="h-que-es">
+            <div class="card-content">
+                <h2 class="card-title" id="h-que-es">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  ¿Qué es Matrix?  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+
+                <div class="content-grid">
+                    <div class="content-text">
+                        <p>
+                            <strong>Matrix</strong> es un servicio de mensajería instantánea libre y descentralizado. Si bien tienen sus propios servidores en <a href="https://matrix.org" class="inline-link" target="_blank" rel="noopener noreferrer">matrix.org</a>, puedes montar tu propio servidor Matrix como hemos hecho nosotros, donde puedes manejar todos tus datos y dependes de ti mismo para tu privacidad.
+                        </p>
+                        <p>
+                            Hemos elegido Matrix ya que es un servicio bastante conocido en la actualidad. Si bien muchas personas no le dan preferencia al ser un servicio que no tanta gente utiliza y que mucha gente ya está acostumbrada a redes como Discord o WhatsApp, estas se quedan con tus datos y los venden para obtener beneficios. En Matrix todo se queda donde está hosteado y el riesgo para tu privacidad es mucho más bajo.
+                        </p>
+
+                        <ul class="benefits-list" role="list">
+                            <li><i class="fas fa-spa" aria-hidden="true"></i> Mensajería cifrada de extremo a extremo</li>
+                            <li><i class="fas fa-spa" aria-hidden="true"></i> Tus conversaciones en tus propios servidores</li>
+                            <li><i class="fas fa-spa" aria-hidden="true"></i> Sin venta de datos ni publicidad</li>
+                            <li><i class="fas fa-spa" aria-hidden="true"></i> Protocolo abierto e interoperable</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-image">
+                        <div class="infra-diagram" aria-label="Comparativa Matrix vs alternativas">
+                            <div class="infra-header">
+                                <i class="fas fa-comments"></i>
+                                <span>Matrix vs otras plataformas</span>
+                            </div>
+                            <div class="infra-vms">
+                                <div class="infra-vm">
+                                    <div class="infra-vm-icon matrix">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="infra-vm-label">Matrix</div>
+                                    <div class="infra-vm-sub">Tus datos, tu servidor</div>
+                                    <div class="infra-vm-ip">✔ Privado</div>
+                                </div>
+                                <div class="infra-vm">
+                                    <div class="infra-vm-icon apache">
+                                        <i class="fab fa-discord"></i>
+                                    </div>
+                                    <div class="infra-vm-label">Discord</div>
+                                    <div class="infra-vm-sub">Datos en servidores ajenos</div>
+                                    <div class="infra-vm-ip">✘ Centralizado</div>
+                                </div>
+                                <div class="infra-vm">
+                                    <div class="infra-vm-icon bind">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div class="infra-vm-label">WhatsApp</div>
+                                    <div class="infra-vm-sub">Propiedad de Meta</div>
+                                    <div class="infra-vm-ip">✘ Centralizado</div>
+                                </div>
+                            </div>
+                            <div class="infra-lan">
+                                <div class="infra-lan-line"></div>
+                                <div class="infra-lan-label">Servidor Matrix — 192.168.101.50</div>
+                                <div class="infra-lan-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN REQUISITOS -->
+        <section class="card-section card-section-alt" id="requisitos" aria-labelledby="h-requisitos">
+            <div class="card-content">
+                <h2 class="card-title" id="h-requisitos">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  Requisitos previos  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+                <p class="card-subtitle">Lo que necesitas antes de empezar la instalación</p>
+
+                <div class="cards-grid" role="list">
+                    <article class="mini-card" role="listitem">
+                        <div class="mini-card-icon" aria-hidden="true">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>Ubuntu Server</h3>
+                        <p>Máquina virtual con Ubuntu Server 24.04.4 LTS. En nuestro caso corre sobre IsardVDI con IP <code>192.168.101.50</code>.</p>
+                    </article>
+
+                    <article class="mini-card" role="listitem">
+                        <div class="mini-card-icon" aria-hidden="true">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Red configurada</h3>
+                        <p>La red interna <code>192.168.101.0/24</code> debe estar operativa, con Kea DHCP y Bind9 funcionando correctamente.</p>
+                    </article>
+
+                    <article class="mini-card" role="listitem">
+                        <div class="mini-card-icon" aria-hidden="true">
+                            <i class="fas fa-terminal"></i>
+                        </div>
+                        <h3>Acceso root</h3>
+                        <p>Necesitas acceso con permisos de superusuario para instalar paquetes y modificar archivos de configuración del sistema.</p>
+                    </article>
+
+                    <article class="mini-card" role="listitem">
+                        <div class="mini-card-icon" aria-hidden="true">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Caddy / HTTPS</h3>
+                        <p>Recomendable tener Caddy configurado para servir Matrix con HTTPS a través de la función bastion de IsardVDI.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN INSTALACIÓN — PENDIENTE -->
+        <section class="card-section" id="instalacion" aria-labelledby="h-instalacion">
+            <div class="card-content">
+                <h2 class="card-title" id="h-instalacion">
+                    <i class="fas fa-spa" aria-hidden="true"></i>  Instalación  <i class="fas fa-spa" aria-hidden="true"></i>
+                </h2>
+                <p class="card-subtitle">Pasos para instalar y configurar Synapse, el servidor de referencia de Matrix</p>
+
+                <div class="objectives-grid">
+
+                    <div class="accordion-card">
+                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-paso1" onclick="toggleCard(this)">
+                            <i class="fas fa-download" aria-hidden="true"></i>
+                            <h3>Paso 1 — Instalación de Synapse</h3>
+                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                        </button>
+                        <div class="accordion-content" id="acc-paso1" hidden>
+                            <div class="doc-pending" role="note">
+                                <i class="fas fa-clock" aria-hidden="true"></i>
+                                <p><strong>Contenido pendiente.</strong> Esta sección se completará próximamente con los comandos de instalación de Synapse.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-card">
+                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-paso2" onclick="toggleCard(this)">
+                            <i class="fas fa-cog" aria-hidden="true"></i>
+                            <h3>Paso 2 — Configuración del servidor</h3>
+                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                        </button>
+                        <div class="accordion-content" id="acc-paso2" hidden>
+                            <div class="doc-pending" role="note">
+                                <i class="fas fa-clock" aria-hidden="true"></i>
+                                <p><strong>Contenido pendiente.</strong> Esta sección se completará con la configuración del archivo <code>homeserver.yaml</code> y los parámetros principales.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-card">
+                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-paso3" onclick="toggleCard(this)">
+                            <i class="fas fa-user-plus" aria-hidden="true"></i>
+                            <h3>Paso 3 — Creación de usuarios</h3>
+                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                        </button>
+                        <div class="accordion-content" id="acc-paso3" hidden>
+                            <div class="doc-pending" role="note">
+                                <i class="fas fa-clock" aria-hidden="true"></i>
+                                <p><strong>Contenido pendiente.</strong> Esta sección explicará cómo crear usuarios administradores y usuarios regulares en el servidor.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-card">
+                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-paso4" onclick="toggleCard(this)">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <h3>Paso 4 — Verificación del servicio</h3>
+                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+                        </button>
+                        <div class="accordion-content" id="acc-paso4" hidden>
+                            <div class="doc-pending" role="note">
+                                <i class="fas fa-clock" aria-hidden="true"></i>
+                                <p><strong>Contenido pendiente.</strong> Esta sección incluirá los comandos para verificar que el servicio está activo y funcionando correctamente.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="card-section" id="footer" aria-label="Pie de página">
+            <div class="card-content footer-content">
+                <div class="footer-grid">
+                    <div class="footer-section">
+                        <h4>The Open Source Project</h4>
+                        <p>Promoviendo la libertad digital, un servidor a la vez.</p>
+                        <a href="https://mastodon.social/@tosp" class="social-link-small" target="_blank" rel="noopener noreferrer" aria-label="Mastodon">
+                            <i class="fab fa-mastodon" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://github.com/StephanyG27/The-Open-Source-Project.git" class="social-link-small" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <i class="fab fa-github" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Legal</h4>
+                        <ul role="list">
+                            <li><a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a></li>
+                            <li><a href="terminos.html" target="_blank" rel="noopener noreferrer">Términos de Uso</a></li>
+                            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">Licencia GPL-3.0</a></li>
+                            <li><a href="https://github.com/StephanyG27/The-Open-Source-Project.git" target="_blank" rel="noopener noreferrer">Código en GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 The Open Source Project — Licencia <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">GPL-3.0</a></p>
+                <p class="heart">Hecho con <i class="fas fa-heart" aria-hidden="true"></i> y <i class="fas fa-spa" aria-hidden="true"></i> por estudiantes</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Volver al inicio de la página" hidden>
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <script src="main.js" defer></script>
+</body>
+</html>
