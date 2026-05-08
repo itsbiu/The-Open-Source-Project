@@ -178,7 +178,7 @@
                                 <!-- Nextcloud -->
                                 <div class="infra-vm">
                                     <div class="infra-vm-icon nextcloud-icon">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg" alt="Nextcloud" style="width:22px;height:22px;object-fit:contain;">
+                                        <i class="fas fa-cloud"></i>
                                     </div>
                                     <div class="infra-vm-label">Nextcloud</div>
                                     <div class="infra-vm-sub">Almacenamiento en la nube</div>
@@ -271,7 +271,7 @@
                             <i class="fas fa-code-branch"></i>
                         </div>
                         <h3>Comunidad Abierta</h3>
-                        <p>Todo lo que construimos es público y accesible. Cualquiera puede ver cómo funciona, mejorarlo y adaptarlo a sus necesidades.</p>
+                        <p>Todo lo que construimos es público y accesible. Cualquiera puede ver cómo funciona, mejorarlo y adaptarlo a sus necesidades. Sin cajas negras, sin secretos.</p>
                     </article>
                 </div>
             </div>
@@ -294,10 +294,6 @@
                         </button>
                         <div class="accordion-content" id="acc-general" hidden>
                             <p>Montar una infraestructura de red completa para centros educativos o empresas, proporcionando autonomía tecnológica y soberanía de datos. Queremos que cada institución pueda tener su propio ecosistema digital, independiente y autónomo, donde los datos nunca salgan de sus propias máquinas.</p>
-                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% completado">
-                                <div class="progress-fill" style="width: 75%"></div>
-                                <span>75% completado</span>
-                            </div>
                         </div>
                     </div>
 
@@ -333,7 +329,9 @@
 
                     <article class="tech-card" role="listitem">
                         <div class="tech-header">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg" alt="Logo de Nextcloud" class="tech-logo" width="60" height="60" loading="lazy">
+                            <div class="tech-logo-placeholder" aria-label="Logo de Nextcloud">
+                                <i class="fas fa-cloud"></i>
+                            </div>
                             <h3>Nextcloud</h3>
                         </div>
                         <p>Plataforma autoalojada de sincronización y colaboración. Almacena archivos, calendarios y contactos con cifrado extremo a extremo y sin intervención de terceros. Nuestra alternativa a Google Drive o Mega.</p>
@@ -415,6 +413,21 @@
                         </div>
                     </article>
 
+                    <article class="tech-card" role="listitem">
+                        <div class="tech-header">
+                            <div class="tech-logo-placeholder" aria-label="Logo de Matrix">
+                                <i class="fas fa-comments" aria-hidden="true"></i>
+                            </div>
+                            <h3>Matrix</h3>
+                        </div>
+                        <p>Protocolo de mensajería descentralizado y cifrado de extremo a extremo. Nuestra alternativa a WhatsApp o Telegram, completamente autoalojada, donde las conversaciones permanecen en nuestros propios servidores.</p>
+                        <div class="tech-tags" aria-label="Categorías">
+                            <span>🔒 Mensajería</span>
+                            <span>🔒 Cifrado E2E</span>
+                            <span>🔒 Descentralizado</span>
+                        </div>
+                    </article>
+
                 </div>
             </div>
         </section>
@@ -449,7 +462,9 @@
                     <!-- NEXTCLOUD -->
                     <article class="tech-card doc-card" role="listitem">
                         <div class="tech-header">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Nextcloud_Logo.svg" alt="Logo de Nextcloud" class="tech-logo" width="60" height="60" loading="lazy">
+                            <div class="tech-logo-placeholder doc-logo" aria-label="Nextcloud">
+                                <i class="fas fa-cloud"></i>
+                            </div>
                             <h3>Nextcloud</h3>
                         </div>
                         <p>Instalación de Nextcloud con Apache2, MySQL y PHP. Configura tu propia nube privada en la red local con almacenamiento seguro y sin dependencias externas.</p>
@@ -552,7 +567,7 @@
                 <div class="footer-grid">
                     <div class="footer-section">
                         <h4>The Open Source Project</h4>
-                        <p>Promoviendo la libertad digital.</p>
+                        <p>Promoviendo la libertad digital, un servidor a la vez.</p>
                         <a href="https://mastodon.social/@tosp" class="social-link-small" target="_blank" rel="noopener noreferrer" aria-label="Mastodon">
                             <i class="fab fa-mastodon" aria-hidden="true"></i>
                         </a>
@@ -575,7 +590,7 @@
 
             <div class="footer-bottom">
                 <p>© 2026 The Open Source Project — Licencia <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">GPL-3.0</a></p>
-            </div>
+                </div>
         </footer>
 
     </main>
