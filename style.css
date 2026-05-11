@@ -413,6 +413,14 @@ ul {
 }
 
 /* ===== CARD SECTIONS (estructura principal) ===== */
+
+/*
+ * Patrón opt-in: las secciones empiezan visibles por defecto.
+ * JS añade .reveal-ready justo antes de observarlas, ocultándolas
+ * en ese instante. El observer añade .visible al entrar en viewport.
+ * Así todas las secciones — header, cuerpo y footer — tienen
+ * exactamente la misma transición de subida.
+ */
 .card-section {
     background: var(--card-bg);
     border-radius: var(--radius-lg);
@@ -421,14 +429,17 @@ ul {
     box-shadow: 0 12px 32px var(--sakura-shadow);
     overflow: hidden;
     position: relative;
-
-    /* scroll-reveal: estado inicial */
-    opacity: 0;
-    transform: translateY(28px);
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.card-section.visible {
+/* Estado inicial oculto — solo cuando JS ha añadido reveal-ready */
+.card-section.reveal-ready {
+    opacity: 0;
+    transform: translateY(28px);
+}
+
+/* Estado final visible */
+.card-section.reveal-ready.visible {
     opacity: 1;
     transform: translateY(0);
 }
@@ -1087,13 +1098,11 @@ footer.card-section {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     z-index: 600;
 
-    /* Usa hidden attribute — se controla con opacity para animación suave */
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s, transform 0.3s, background var(--transition);
 }
 
-/* Cuando hidden se quita, queremos mostrar con animación — lo manejamos via clase */
 .back-to-top:not([hidden]) {
     opacity: 1;
     transform: translateY(0);

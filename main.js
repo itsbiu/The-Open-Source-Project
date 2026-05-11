@@ -43,9 +43,7 @@ function enterSite() {
         contenido.hidden = false;
         contenido.classList.add("fade-in");
 
-        document.querySelectorAll(".card-section").forEach(s => {
-            revealObserver.observe(s);
-        });
+        observeSections(contenido);
 
         setTimeout(() => {
             const header = document.getElementById("inicio");
@@ -159,6 +157,15 @@ const revealObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.08 });
 
+// Añade reveal-ready a cada sección justo antes de observarla,
+// así ninguna empieza invisible si ya está en el viewport.
+function observeSections(container) {
+    container.querySelectorAll(".card-section").forEach(s => {
+        s.classList.add("reveal-ready");
+        revealObserver.observe(s);
+    });
+}
+
 // --- Smooth scroll for anchor links ---
 document.addEventListener("click", e => {
     const link = e.target.closest('a[href^="#"]');
@@ -182,7 +189,7 @@ window.addEventListener("load", () => {
             welcomePage.remove();
             contenido.hidden = false;
             contenido.classList.add("fade-in");
-            document.querySelectorAll(".card-section").forEach(s => revealObserver.observe(s));
+            observeSections(contenido);
             setTimeout(() => {
                 const header = document.getElementById("inicio");
                 if (header) header.scrollIntoView({ behavior: "smooth" });
