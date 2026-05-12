@@ -157,8 +157,6 @@ const revealObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.08 });
 
-// Añade reveal-ready a cada sección justo antes de observarla,
-// así ninguna empieza invisible si ya está en el viewport.
 function observeSections(container) {
     container.querySelectorAll(".card-section").forEach(s => {
         s.classList.add("reveal-ready");
@@ -179,13 +177,19 @@ document.addEventListener("click", e => {
 
 // --- Init on load ---
 window.addEventListener("load", () => {
-    emailjs.init("hne1y0REm-3wem4nl");
 
-    // Si venimos de una página de documentación, saltar la bienvenida
-    if (window.location.hash === '#inicio') {
-        const welcomePage = document.getElementById("welcomePage");
-        const contenido   = document.getElementById("contenido");
-        if (welcomePage && contenido) {
+    // Páginas de documentación: no tienen welcomePage ni contenido oculto
+    const welcomePage = document.getElementById("welcomePage");
+    if (!welcomePage) {
+        hideLoadingOverlay();
+        observeSections(document.querySelector("main") || document.body);
+        return;
+    }
+
+    // index.html: saltar bienvenida si venimos con #inicio en la URL
+    if (window.location.hash === "#inicio") {
+        const contenido = document.getElementById("contenido");
+        if (contenido) {
             welcomePage.remove();
             contenido.hidden = false;
             contenido.classList.add("fade-in");
@@ -194,11 +198,13 @@ window.addEventListener("load", () => {
                 const header = document.getElementById("inicio");
                 if (header) header.scrollIntoView({ behavior: "smooth" });
             }, 150);
-            hideLoadingOverlay();
-            return;
         }
+        hideLoadingOverlay();
+        return;
     }
 
+    // index.html: flujo normal con pantalla de bienvenida
+    emailjs.init("hne1y0REm-3wem4nl");
     typeEffect();
     setTimeout(hideLoadingOverlay, 300);
 });

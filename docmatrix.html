@@ -3,299 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Documentación de Matrix — Instalación y configuración del servidor de mensajería descentralizado.">
-    <meta name="theme-color" content="#fdf6f9">
-
     <title>Documentación Matrix — The Open Source Project</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="doc.css">
 </head>
-<body>
+<body class="doc-page">
 
-    <!-- OVERLAY DE CARGA -->
-    <div class="loading-overlay" id="loadingOverlay" role="status" aria-label="Cargando">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- NAV STICKY -->
-    <nav class="site-nav" id="siteNav" aria-label="Navegación principal">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo" aria-label="Volver al inicio">
-                <i class="fas fa-spa" aria-hidden="true"></i>
-                <span>TOSP</span>
-            </a>
-            <ul class="nav-links" role="list">
-                <li><a href="index.html#que-ofrecemos">¿Qué ofrecemos?</a></li>
-                <li><a href="index.html#filosofia">Valores</a></li>
-                <li><a href="index.html#tecnologias">Tecnologías</a></li>
-                <li><a href="index.html#documentacion">Documentación</a></li>
-                <li><a href="index.html#contacto">Contacto</a></li>
-            </ul>
-            <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
-                <i class="fas fa-bars" aria-hidden="true"></i>
-            </button>
-        </div>
-
-        <div class="mobile-menu" id="mobileMenu" hidden>
-            <ul role="list">
-                <li><a href="index.html#que-ofrecemos" onclick="closeMobileMenu()">¿Qué ofrecemos?</a></li>
-                <li><a href="index.html#filosofia" onclick="closeMobileMenu()">Valores</a></li>
-                <li><a href="index.html#tecnologias" onclick="closeMobileMenu()">Tecnologías</a></li>
-                <li><a href="index.html#documentacion" onclick="closeMobileMenu()">Documentación</a></li>
-                <li><a href="index.html#contacto" onclick="closeMobileMenu()">Contacto</a></li>
-            </ul>
-        </div>
+    <nav class="doc-page-nav">
+        <a href="index.html#inicio"><i class="fas fa-arrow-left"></i> Volver</a>
+        <span class="doc-page-nav-sep">/</span>
+        <span class="doc-page-nav-title">Documentación Matrix</span>
     </nav>
 
-    <main>
+    <div class="doc-page-hero" id="inicio">
+        <div class="doc-page-hero-icon">
+            <i class="fas fa-comments"></i>
+        </div>
+        <h1>Matrix — Mensajería privada</h1>
+        <p>Instalación de Matrix/Synapse con PostgreSQL y Caddy en Ubuntu Server <code>192.168.101.50</code> para una mensajería instantánea completamente privada y autoalojada.</p>
+    </div>
 
-        <!-- HEADER -->
-        <header class="card-section" id="inicio">
-            <div class="card-header-particles" aria-hidden="true"></div>
-            <div class="card-content header-content">
-                <h2 class="card-title">
-                    <i class="fas fa-comments" aria-hidden="true"></i>
-                    Matrix
-                </h2>
-                <p class="card-subtitle">
-                    Guía de instalación y configuración del servidor de mensajería descentralizado Matrix/Synapse en Ubuntu Server.
-                </p>
-                <div class="header-actions">
-                    <a href="index.html#documentacion" class="btn btn-primary">
-                        <i class="fas fa-arrow-left" aria-hidden="true"></i> Volver a documentación
-                    </a>
-                </div>
-            </div>
-        </header>
+    <div class="doc-page-body">
 
-        <!-- SECCIÓN ¿QUÉ ES MATRIX? -->
-        <section class="card-section" id="que-es" aria-labelledby="h-que-es">
-            <div class="card-content">
-                <h2 class="card-title" id="h-que-es">
-                    <i class="fas fa-spa" aria-hidden="true"></i>  ¿Qué es Matrix?  <i class="fas fa-spa" aria-hidden="true"></i>
-                </h2>
+        <!-- PASO 1 -->
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-download"></i> Paso 1 — Instalación de dependencias</div>
+            <p>Nos convertimos en root, actualizamos los paquetes e instalamos todas las dependencias necesarias para Matrix/Synapse:</p>
+            <pre><code>apt update && apt install -y lsb-release wget apt-transport-https \
+build-essential python3-dev libffi-dev python3-pip python3-setuptools \
+sqlite3 libssl-dev virtualenv libjpeg-dev libxslt1-dev libicu-dev \
+libpq5 libpq-dev postgresql postgresql-contrib debian-keyring \
+debian-archive-keyring apt-transport-https</code></pre>
+            <p>Añadimos el repositorio oficial de Matrix e instalamos <strong>matrix-synapse-py3</strong>:</p>
+            <pre><code>wget -O /usr/share/keyrings/matrix-org-archive-keyring.gpg \
+  https://packages.matrix.org/debian/matrix-org-archive-keyring.gpg
 
-                <div class="content-grid">
-                    <div class="content-text">
-                        <p>
-                            <strong>Matrix</strong> es un servicio de mensajería instantánea libre y descentralizado. Si bien tienen sus propios servidores en <a href="https://matrix.org" class="inline-link" target="_blank" rel="noopener noreferrer">matrix.org</a>, puedes montar tu propio servidor Matrix como hemos hecho nosotros, donde puedes manejar todos tus datos y dependes de ti mismo para tu privacidad.
-                        </p>
-                        <p>
-                            Hemos elegido Matrix ya que es un servicio bastante conocido en la actualidad. Si bien muchas personas no le dan preferencia al ser un servicio que no tanta gente utiliza y que mucha gente ya está acostumbrada a redes como Discord o WhatsApp, estas se quedan con tus datos y los venden para obtener beneficios. En Matrix todo se queda donde está hosteado y el riesgo para tu privacidad es mucho más bajo.
-                        </p>
+echo "deb [signed-by=/usr/share/keyrings/matrix-org-archive-keyring.gpg] \
+  https://packages.matrix.org/debian/ $(lsb_release -cs) main" | \
+  tee /etc/apt/sources.list.d/matrix-org.list
 
-                        <ul class="benefits-list" role="list">
-                            <li><i class="fas fa-spa" aria-hidden="true"></i> Mensajería cifrada de extremo a extremo</li>
-                            <li><i class="fas fa-spa" aria-hidden="true"></i> Tus conversaciones en tus propios servidores</li>
-                            <li><i class="fas fa-spa" aria-hidden="true"></i> Sin venta de datos ni publicidad</li>
-                            <li><i class="fas fa-spa" aria-hidden="true"></i> Protocolo abierto e interoperable</li>
-                        </ul>
-                    </div>
+apt update && apt install matrix-synapse-py3</code></pre>
+            <div class="doc-note">Durante la instalación nos preguntará por nuestro dominio. Introducimos la URL del bastion de IsardVDI que nos ha proporcionado la plataforma.</div>
+        </div>
 
-                    <div class="content-image">
-                        <div class="infra-diagram" aria-label="Comparativa Matrix vs alternativas">
-                            <div class="infra-header">
-                                <i class="fas fa-comments"></i>
-                                <span>Matrix vs otras plataformas</span>
-                            </div>
-                            <div class="infra-vms">
-                                <div class="infra-vm">
-                                    <div class="infra-vm-icon matrix">
-                                        <i class="fas fa-comments"></i>
-                                    </div>
-                                    <div class="infra-vm-label">Matrix</div>
-                                    <div class="infra-vm-sub">Tus datos, tu servidor</div>
-                                    <div class="infra-vm-ip">✔ Privado</div>
-                                </div>
-                                <div class="infra-vm">
-                                    <div class="infra-vm-icon apache">
-                                        <i class="fab fa-discord"></i>
-                                    </div>
-                                    <div class="infra-vm-label">Discord</div>
-                                    <div class="infra-vm-sub">Datos en servidores ajenos</div>
-                                    <div class="infra-vm-ip">✘ Centralizado</div>
-                                </div>
-                                <div class="infra-vm">
-                                    <div class="infra-vm-icon bind">
-                                        <i class="fab fa-whatsapp"></i>
-                                    </div>
-                                    <div class="infra-vm-label">WhatsApp</div>
-                                    <div class="infra-vm-sub">Propiedad de Meta</div>
-                                    <div class="infra-vm-ip">✘ Centralizado</div>
-                                </div>
-                            </div>
-                            <div class="infra-lan">
-                                <div class="infra-lan-line"></div>
-                                <div class="infra-lan-label">Servidor Matrix — 192.168.101.50</div>
-                                <div class="infra-lan-line"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- PASO 2 -->
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-database"></i> Paso 2 — Configuración de PostgreSQL</div>
+            <p>Entramos como el usuario <code>postgres</code> y creamos el usuario y la base de datos:</p>
+            <pre><code>sudo -u postgres bash
 
-        <!-- SECCIÓN REQUISITOS -->
-        <section class="card-section card-section-alt" id="requisitos" aria-labelledby="h-requisitos">
-            <div class="card-content">
-                <h2 class="card-title" id="h-requisitos">
-                    <i class="fas fa-spa" aria-hidden="true"></i>  Requisitos previos  <i class="fas fa-spa" aria-hidden="true"></i>
-                </h2>
-                <p class="card-subtitle">Lo que necesitas antes de empezar la instalación</p>
+createuser --pwprompt synapse_user
+# Introducir y recordar la contraseña cuando se solicite
 
-                <div class="cards-grid" role="list">
-                    <article class="mini-card" role="listitem">
-                        <div class="mini-card-icon" aria-hidden="true">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <h3>Ubuntu Server</h3>
-                        <p>Máquina virtual con Ubuntu Server 24.04.4 LTS. En nuestro caso corre sobre IsardVDI con IP <code>192.168.101.50</code>.</p>
-                    </article>
+createdb --encoding=UTF8 --locale=C \
+  --template=template0 --owner=synapse_user synapse
 
-                    <article class="mini-card" role="listitem">
-                        <div class="mini-card-icon" aria-hidden="true">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h3>Red configurada</h3>
-                        <p>La red interna <code>192.168.101.0/24</code> debe estar operativa, con Kea DHCP y Bind9 funcionando correctamente.</p>
-                    </article>
+exit</code></pre>
+            <p>Editamos <code>/etc/postgresql/12/main/postgresql.conf</code> y buscamos el parámetro <code>listen_addresses</code>:</p>
+            <pre><code>listen_addresses = 'localhost'</code></pre>
+            <p>Luego editamos <code>/etc/postgresql/12/main/pg_hba.conf</code> y añadimos esta línea al final para activar la autenticación por contraseña:</p>
+            <pre><code>local   synapse   synapse_user   md5</code></pre>
+            <p>El bloque final del archivo quedará así:</p>
+            <pre><code>local   replication   all              peer
+host    replication   all   127.0.0.1/32   md5
+host    replication   all   ::1/128        md5
+local   synapse       synapse_user    md5</code></pre>
+        </div>
 
-                    <article class="mini-card" role="listitem">
-                        <div class="mini-card-icon" aria-hidden="true">
-                            <i class="fas fa-terminal"></i>
-                        </div>
-                        <h3>Acceso root</h3>
-                        <p>Necesitas acceso con permisos de superusuario para instalar paquetes y modificar archivos de configuración del sistema.</p>
-                    </article>
+        <!-- PASO 3 -->
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-cog"></i> Paso 3 — Configuración de homeserver.yaml</div>
+            <p>Abrimos el archivo principal de configuración en <code>/etc/matrix-synapse/homeserver.yaml</code>. Primero borramos el bloque SQLite que viene por defecto:</p>
+            <pre><code>database:
+  name: sqlite
+  args:
+    database: /var/lib/matrix-synapse/homeserver.db</code></pre>
+            <p>Y lo sustituimos por la configuración de PostgreSQL:</p>
+            <pre><code>database:
+  name: psycopg2
+  args:
+    user: synapse_user
+    password: &lt;contraseña&gt;
+    database: synapse
+    host: localhost
+    cp_min: 5
+    cp_max: 10</code></pre>
+            <p>Los parámetros principales del archivo completo son los siguientes:</p>
+            <pre><code>server_name: "matrix-tosp"
+public_baseurl: "https://&lt;url-del-bastion&gt;"
+serve_server_wellknown: true
+pid_file: "/var/run/matrix-synapse.pid"
 
-                    <article class="mini-card" role="listitem">
-                        <div class="mini-card-icon" aria-hidden="true">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <h3>Caddy / HTTPS</h3>
-                        <p>Recomendable tener Caddy configurado para servir Matrix con HTTPS a través de la función bastion de IsardVDI.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
+listeners:
+  - bind_addresses:
+      - ::1
+      - 127.0.0.1
+    port: 8008
+    resources:
+      - compress: false
+        names:
+          - client
+          - federation
+    tls: false
+    type: http
+    x_forwarded: true
 
-        <!-- SECCIÓN INSTALACIÓN — PENDIENTE -->
-        <section class="card-section" id="instalacion" aria-labelledby="h-instalacion">
-            <div class="card-content">
-                <h2 class="card-title" id="h-instalacion">
-                    <i class="fas fa-spa" aria-hidden="true"></i>  Instalación  <i class="fas fa-spa" aria-hidden="true"></i>
-                </h2>
-                <p class="card-subtitle">Pasos para instalar y configurar Synapse, el servidor de referencia de Matrix</p>
+registration_shared_secret: "&lt;contraseña-segura&gt;"
+enable_registration: true
+enable_registration_without_verification: true
 
-                <div class="objectives-grid">
+rc_registration:
+  per_second: 9999
+  burst_count: 9999</code></pre>
+            <div class="doc-note">Los parámetros <code>enable_registration</code> y <code>rc_registration</code> permiten el registro libre de usuarios. Ajústalos según las necesidades de seguridad de tu entorno.</div>
+        </div>
 
-                    <div class="accordion-card">
-                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-paso1" onclick="toggleCard(this)">
-                            <i class="fas fa-download" aria-hidden="true"></i>
-                            <h3>Paso 1 — Instalación de Synapse</h3>
-                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
-                        </button>
-                        <div class="accordion-content" id="acc-paso1" hidden>
-                            <div class="doc-pending" role="note">
-                                <i class="fas fa-clock" aria-hidden="true"></i>
-                                <p><strong>Contenido pendiente.</strong> Esta sección se completará próximamente con los comandos de instalación de Synapse.</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- PASO 4 -->
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-shield-alt"></i> Paso 4 — Proxy inverso con Caddy</div>
+            <p>Un <strong>proxy inverso</strong> es un servidor intermedio que recibe las peticiones de los clientes y las redirige a Synapse. Caddy además gestiona automáticamente los certificados HTTPS mediante Let's Encrypt.</p>
+            <p>Añadimos los repositorios oficiales de Caddy e instalamos:</p>
+            <pre><code>curl -1sLf \
+  'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | \
+  sudo gpg --dearmor -o \
+  /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 
-                    <div class="accordion-card">
-                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-paso2" onclick="toggleCard(this)">
-                            <i class="fas fa-cog" aria-hidden="true"></i>
-                            <h3>Paso 2 — Configuración del servidor</h3>
-                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
-                        </button>
-                        <div class="accordion-content" id="acc-paso2" hidden>
-                            <div class="doc-pending" role="note">
-                                <i class="fas fa-clock" aria-hidden="true"></i>
-                                <p><strong>Contenido pendiente.</strong> Esta sección se completará con la configuración del archivo <code>homeserver.yaml</code> y los parámetros principales.</p>
-                            </div>
-                        </div>
-                    </div>
+curl -1sLf \
+  'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | \
+  sudo tee /etc/apt/sources.list.d/caddy-stable.list
 
-                    <div class="accordion-card">
-                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-paso3" onclick="toggleCard(this)">
-                            <i class="fas fa-user-plus" aria-hidden="true"></i>
-                            <h3>Paso 3 — Creación de usuarios</h3>
-                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
-                        </button>
-                        <div class="accordion-content" id="acc-paso3" hidden>
-                            <div class="doc-pending" role="note">
-                                <i class="fas fa-clock" aria-hidden="true"></i>
-                                <p><strong>Contenido pendiente.</strong> Esta sección explicará cómo crear usuarios administradores y usuarios regulares en el servidor.</p>
-                            </div>
-                        </div>
-                    </div>
+apt update && apt install caddy</code></pre>
+            <p>Editamos <code>/etc/caddy/Caddyfile</code>, borramos todo el contenido y añadimos la siguiente configuración:</p>
+            <pre><code>&lt;url-del-bastion&gt; {
+    # Matrix client API
+    reverse_proxy /_matrix/* localhost:8008 {
+        header_up Host {host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
 
-                    <div class="accordion-card">
-                        <button class="accordion-header" aria-expanded="false" aria-controls="acc-paso4" onclick="toggleCard(this)">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            <h3>Paso 4 — Verificación del servicio</h3>
-                            <i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
-                        </button>
-                        <div class="accordion-content" id="acc-paso4" hidden>
-                            <div class="doc-pending" role="note">
-                                <i class="fas fa-clock" aria-hidden="true"></i>
-                                <p><strong>Contenido pendiente.</strong> Esta sección incluirá los comandos para verificar que el servicio está activo y funcionando correctamente.</p>
-                            </div>
-                        </div>
-                    </div>
+    # Synapse client endpoints (SSO, registro, etc.)
+    reverse_proxy /_synapse/client/* localhost:8008 {
+        header_up Host {host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
 
-                </div>
-            </div>
-        </section>
+    # Fallback para el resto (incluido .well-known)
+    reverse_proxy localhost:8008 {
+        header_up Host {host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}</code></pre>
+        </div>
 
-        <!-- FOOTER -->
-        <footer class="card-section" id="footer" aria-label="Pie de página">
-            <div class="card-content footer-content">
-                <div class="footer-grid">
-                    <div class="footer-section">
-                        <h4>The Open Source Project</h4>
-                        <p>Promoviendo la libertad digital, un servidor a la vez.</p>
-                        <a href="https://mastodon.social/@tosp" class="social-link-small" target="_blank" rel="noopener noreferrer" aria-label="Mastodon">
-                            <i class="fab fa-mastodon" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://github.com/StephanyG27/The-Open-Source-Project.git" class="social-link-small" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                            <i class="fab fa-github" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="footer-section">
-                        <h4>Legal</h4>
-                        <ul role="list">
-                            <li><a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad</a></li>
-                            <li><a href="terminos.html" target="_blank" rel="noopener noreferrer">Términos de Uso</a></li>
-                            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">Licencia GPL-3.0</a></li>
-                            <li><a href="https://github.com/StephanyG27/The-Open-Source-Project.git" target="_blank" rel="noopener noreferrer">Código en GitHub</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 The Open Source Project — Licencia <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">GPL-3.0</a></p>
-                <p class="heart">Hecho con <i class="fas fa-heart" aria-hidden="true"></i> y <i class="fas fa-spa" aria-hidden="true"></i> por estudiantes</p>
-            </div>
-        </footer>
+        <!-- PASO 5 -->
+        <div class="doc-section">
+            <div class="doc-section-title"><i class="fas fa-check-circle"></i> Paso 5 — Arranque y verificación</div>
+            <p>Reiniciamos los tres servicios para aplicar todos los cambios:</p>
+            <pre><code>systemctl restart caddy.service
+systemctl restart postgresql.service
+systemctl restart matrix-synapse</code></pre>
+            <p>Si todo ha salido bien, al acceder a la URL del bastion en el navegador veremos la pantalla de confirmación de Synapse con el mensaje <strong>"It works! Synapse is running"</strong>.</p>
+            <p>Para comprobar que Matrix funciona correctamente, accedemos a un cliente como <a href="https://app.element.io" target="_blank" rel="noopener noreferrer">Element</a> o Cinny, seleccionamos <em>Registrarse</em> y en el campo <em>Host account on</em> introducimos la URL de nuestro bastion. Una vez creado el usuario ya podemos empezar a chatear.</p>
+            <div class="doc-note">Este servidor está configurado para uso interno. Los usuarios solo pueden comunicarse con cuentas del mismo dominio, ya que está pensado para la comunicación dentro de una organización, no con usuarios externos.</div>
+        </div>
 
-    </main>
+    </div>
 
     <!-- BOTÓN VOLVER ARRIBA -->
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Volver al inicio de la página" hidden>
+    <button class="back-to-top" id="backToTop" aria-label="Volver al inicio de la página" hidden>
         <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
 
-    <script src="main.js" defer></script>
+    <script>
+        // Botón volver arriba — lleva al hero (#inicio), no recarga la página
+        const backToTopBtn = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+            backToTopBtn.hidden = window.scrollY <= 500;
+        }, { passive: true });
+
+        backToTopBtn.addEventListener("click", () => {
+            document.getElementById("inicio").scrollIntoView({ behavior: "smooth" });
+        });
+    </script>
+
 </body>
 </html>
