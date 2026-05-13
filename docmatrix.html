@@ -57,13 +57,12 @@ apt update && apt install matrix-synapse-py3</code></pre>
             <pre><code>sudo -u postgres bash
 
 createuser --pwprompt synapse_user
-# Introducir y recordar la contraseña cuando se solicite
 
 createdb --encoding=UTF8 --locale=C \
   --template=template0 --owner=synapse_user synapse
 
 exit</code></pre>
-            <p>Editamos <code>/etc/postgresql/12/main/postgresql.conf</code> y buscamos el parámetro <code>listen_addresses</code>:</p>
+            <p>Editamos <code>/etc/postgresql/12/main/postgresql.conf</code> y buscamos el parámetro <code>listen_addresses</code>, al cual le añadiremos 'localhost'.</p>
             <pre><code>listen_addresses = 'localhost'</code></pre>
             <p>Luego editamos <code>/etc/postgresql/12/main/pg_hba.conf</code> y añadimos esta línea al final para activar la autenticación por contraseña:</p>
             <pre><code>local   synapse   synapse_user   md5</code></pre>

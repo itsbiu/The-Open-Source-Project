@@ -66,7 +66,7 @@ cd /var/www/html/
 unzip nextcloud-33.0.2.zip
 rm nextcloud-33.0.2.zip
 mv nextcloud/* .
-rmdir nextcloud</code></pre>
+rm -rf nextcloud</code></pre>
         </div>
 
         <div class="doc-section">
@@ -75,7 +75,7 @@ rmdir nextcloud</code></pre>
             <pre><code>sudo chown -R www-data:www-data /var/www/html/
 sudo chmod -R 755 /var/www/html/
 sudo systemctl restart apache2</code></pre>
-            <div class="doc-note">Después de estos pasos, accede a <code>http://cloud.tosp.local.net</code> desde un navegador dentro de la red para completar la instalación vía interfaz web.</div>
+            <div class="doc-note">Después de estos pasos, accede a la IP de la máquina desde un navegador dentro de la red para completar la instalación vía interfaz web.</div>
         </div>
 
     </div>
