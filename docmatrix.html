@@ -111,7 +111,22 @@ listeners:
     type: http
     x_forwarded: true
 
-registration_shared_secret: "&lt;contraseña-segura&gt;"
+database:
+  name: psycopg2
+  args:
+    user: tosp-admin
+    password: PASSWORD
+    database: synapse
+    host: localhost
+    cp_min: 5
+    cp_max: 10
+log_config: "/etc/matrix-synapse/log.yaml"
+media_store_path: /var/lib/matrix-synapse/media
+signing_key_path: "/etc/matrix-synapse/homeserver.signing.key"
+trusted_key_servers:
+  - server_name: "tosp-matrix"
+
+registration_shared_secret: "&lt;contraseña&gt;"
 enable_registration: true
 enable_registration_without_verification: true
 
@@ -126,14 +141,9 @@ rc_registration:
             <div class="doc-section-title"><i class="fas fa-shield-alt"></i> Paso 4 — Proxy inverso con Caddy</div>
             <p>Un <strong>proxy inverso</strong> es un servidor intermedio que recibe las peticiones de los clientes y las redirige a Synapse. Caddy además gestiona automáticamente los certificados HTTPS mediante Let's Encrypt.</p>
             <p>Añadimos los repositorios oficiales de Caddy e instalamos:</p>
-            <pre><code>curl -1sLf \
-  'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | \
-  sudo gpg --dearmor -o \
-  /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+            <pre><code>curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 
-curl -1sLf \
-  'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | \
-  sudo tee /etc/apt/sources.list.d/caddy-stable.list
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 
 apt update && apt install caddy</code></pre>
             <p>Editamos <code>/etc/caddy/Caddyfile</code>, borramos todo el contenido y añadimos la siguiente configuración:</p>
@@ -169,7 +179,7 @@ apt update && apt install caddy</code></pre>
 systemctl restart postgresql.service
 systemctl restart matrix-synapse</code></pre>
             <p>Si todo ha salido bien, al acceder a la URL del bastion en el navegador veremos la pantalla de confirmación de Synapse con el mensaje <strong>"It works! Synapse is running"</strong>.</p>
-            <p>Para comprobar que Matrix funciona correctamente, accedemos a un cliente como <a href="https://app.element.io" target="_blank" rel="noopener noreferrer">Element</a> o Cinny, seleccionamos <em>Registrarse</em> y en el campo <em>Host account on</em> introducimos la URL de nuestro bastion. Una vez creado el usuario ya podemos empezar a chatear.</p>
+            <p>Para comprobar que Matrix funciona correctamente, accedemos a un cliente como <a href="https://app.element.io" target="_blank" rel="noopener noreferrer">Element</a> o Cinny, seleccionamos <em>Registrarse</em> y en el campo <em>Host account on</em> introducimos la URL de nuestro bastion. Una vez creado el usuario ya podemos usar matrix para hablar con personas de nuestra organización.</p>
             <div class="doc-note">Este servidor está configurado para uso interno. Los usuarios solo pueden comunicarse con cuentas del mismo dominio, ya que está pensado para la comunicación dentro de una organización, no con usuarios externos.</div>
         </div>
 
