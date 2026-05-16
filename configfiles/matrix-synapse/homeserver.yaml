@@ -1,0 +1,52 @@
+# Configuration file for Synapse.
+#
+# This is a YAML file: see [1] for a quick introduction. Note in particular
+# that *indentation is important*: all the elements of a list or dictionary
+# should have the same indentation.
+#
+# [1] https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+#
+# For more information on how to configure Synapse, including a complete accounting of
+# each option, go to docs/usage/configuration/config_documentation.md or
+# https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html
+#
+# This is set in /etc/matrix-synapse/conf.d/server_name.yaml for Debian installations.
+server_name: "matrix-tosp"
+public_baseurl: "https://52399e86-8726-41a6-ac7c.3daa65b6d022.bastion.elmeuescriptori.cat"
+serve_server_wellknown: true
+pid_file: "/var/run/matrix-synapse.pid"
+listeners:
+  - bind_addresses:
+    - ::1
+    - 127.0.0.1
+    port: 8008
+    resources:
+    - compress: false
+      names:
+      - client
+      - federation
+    tls: false
+    type: http
+    x_forwarded: true
+database:
+  name: psycopg2
+  args:
+    user: 
+    password: 
+    database: synapse
+    host: localhost
+    cp_min: 5
+    cp_max: 10
+log_config: "/etc/matrix-synapse/log.yaml"
+media_store_path: /var/lib/matrix-synapse/media
+signing_key_path: "/etc/matrix-synapse/homeserver.signing.key"
+trusted_key_servers:
+  - server_name: "tosp-matrix"
+
+registration_shared_secret: 
+
+enable_registration: true
+enable_registration_without_verification: true
+rc_registration:
+  per_second: 9999
+  burst_count: 9999
