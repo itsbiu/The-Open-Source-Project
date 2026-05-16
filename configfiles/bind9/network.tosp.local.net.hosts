@@ -1,0 +1,21 @@
+$TTL 300
+@   IN  SOA     ns1.tosp.local.net. admin.tosp.local.net. (
+            1  ; Serial
+            10800        ; Refresh
+            3600        ; Retry
+            604800      ; Expire
+            60          ; Minimum TTL
+            )
+
+; Nameservers
+@       IN  NS      ns1.tosp.local.net.
+
+; A Records - Servidores
+ns1     IN  A       192.168.101.20
+
+; A Records - Servicios
+@       IN  A       192.168.101.1      ; tosp.local.net  página web 
+cloud   IN  A       192.168.101.40      ; cloud.tosp.local.net  Nextcloud (testing)
+matrix  IN  A       192.168.101.50      ; matrix.tosp.local.net  Matrix
+
+
