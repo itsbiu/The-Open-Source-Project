@@ -14,4 +14,7 @@ Actualmente hemos planificado y puesto a prueba una infraestructura de red con s
 
 ## ¿Dónde se pueden consultar manuales y el código?
 
-Los manuales para que cualquiera pueda instalar estos servicios se encuentran en nuestra página web, enlazada a este repositorio. Los códigos que nosotros hemos usado también se encuentran ahí, aunque también están dispoonibles [aquí](configfiles/).
+Los manuales para que cualquiera pueda instalar estos servicios se encuentran en nuestra página web, enlazada a este repositorio. Los códigos que nosotros hemos usado también se encuentran ahí, aunque también están disponibles [aquí](configfiles/).
+
+Nuestra web se encuentra desplegada en una máquina virtual de isard utilizando la función bastion. Se puede consultar [aquí](https://bb2bd143-d50c-4381-835c.bd02712cf284.bastion.elmeuescriptori.cat).
+También la hemos desplegado con github pages. Se puede consultar [aquí](https://stephanyg27.github.io/The-Open-Source-Project/).
